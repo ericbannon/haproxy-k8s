@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: tls-web-ingress
+  namespace: qpm
+  annotations:
+    haproxy.org/forwarded-for: "enabled"
+    haproxy.org/load-balance: "roundrobin"
+    haproxy.org/whitelist: "127.0.0.1,192.168.50.1/24"
+    haproxy.org/whiteist-with-rate-limit: "ON"
+    ingress.kubernetes.io/affinity: "cookie"
+    ingress.kubernetes.io/session-cookie-name: "JSESSIONID"
+spec:
+  tls:
+  - hosts:
+    - sample-web.companyname.com
+    secretName: secure.companyname.com
+  rules:
+    - host: sample-web.companyname.com
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: web-service
+            servicePort: 80
