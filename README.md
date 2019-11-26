@@ -14,13 +14,17 @@
           - --reload-strategy=native
 
 A TLS secret should be created and  maintained in the default namespace. Enabling this argument allows use of SSL with the Ingress Controller by using an ad-hoc TLS secret in Kubernetes. The Ingress object itself dictates which certs are used by an Ingress object during ingress through HA Proxy 
+
+        default-token                               
+        tls-secret 
         
 The TLS flag in “spec” secures Ingress by specifying a Secret that contains a TLS private key and certificate. Currently the Ingress api in Kubernetes only supports a single TLS port, 443, and assumes TLS termination. If the TLS configuration section in an Ingress specifies different hosts, they are multiplexed on the same port according to the hostname specified through the SNI TLS extension (provided the Ingress controller supports SNI). The TLS secret must contain keys named tls.crt and tls.key that contain the certificate and private key to use for TLS.
 
-All SSL certificates must be  created as Secrets inside the Kubernetes cluster for reference in the ingress spec 
-
-        default-token                               
-        tls-secret                               
+        spec:
+         tls:
+        - hosts:
+        - sample-web.companyname.com
+         secretName: <insert-secret-name>                             
 
 ### Sticky Sessions 
 
