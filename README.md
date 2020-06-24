@@ -1,6 +1,6 @@
 ## HAProxy Blue Print for Kubernetes 
 
-* SSL Pass-Through and HTTPS
+* SSL Pass-Through and TLS
 * Sticky Sessions 
 * Separate reads/writes for Database Traffic 
 
