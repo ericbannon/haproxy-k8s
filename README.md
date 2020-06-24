@@ -1,4 +1,4 @@
-## HAProxy and Traefik Ingress for Web Service Blue Print 
+## HAProxy Blue Print for Kubernetes 
 
 * SSL Pass-Through and HTTPS
 * Sticky Sessions 
