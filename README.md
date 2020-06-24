@@ -6,6 +6,11 @@
 
 ### SSL Pass-Through and TLS
 
+        annotations:
+           ingress.kubernetes.io/ssl-passthrough
+           
+Annotates an Ingress resource to specify that connections to backend servers be processed purely as TCP, with the expectation that they perform SSL encryption. Supported values: true, false
+
         args:
           - --configmap=default/haproxy-configmap
           - --default-backend-service=haproxy-controller/ingress-default-backend
@@ -14,17 +19,14 @@
           - --reload-strategy=native
 
 A TLS secret should be created and  maintained in the default namespace. Enabling this argument allows use of SSL with the Ingress Controller by using an ad-hoc TLS secret in Kubernetes. The Ingress object itself dictates which certs are used by an Ingress object during ingress through HA Proxy 
-
-        default-token                               
-        tls-secret 
-        
-The TLS flag in “spec” secures Ingress by specifying a Secret that contains a TLS private key and certificate. Currently the Ingress api in Kubernetes only supports a single TLS port, 443, and assumes TLS termination. If the TLS configuration section in an Ingress specifies different hosts, they are multiplexed on the same port according to the hostname specified through the SNI TLS extension (provided the Ingress controller supports SNI). The TLS secret must contain keys named tls.crt and tls.key that contain the certificate and private key to use for TLS.
-
-        spec:
+ 
+    spec:
          tls:
         - hosts:
         - sample-web.companyname.com
          secretName: <insert-secret-name>                             
+
+The TLS flag in “spec” secures Ingress by specifying a Secret that contains a TLS private key and certificate. Currently the Ingress api in Kubernetes only supports a single TLS port, 443, and assumes TLS termination. If the TLS configuration section in an Ingress specifies different hosts, they are multiplexed on the same port according to the hostname specified through the SNI TLS extension (provided the Ingress controller supports SNI). The TLS secret must contain keys named tls.crt and tls.key that contain the certificate and private key to use for TLS.
 
 ### Sticky Sessions 
 
