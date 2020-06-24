@@ -10,6 +10,7 @@ metadata:
     haproxy.org/whiteist-with-rate-limit: "ON"
     ingress.kubernetes.io/affinity: "cookie"
     ingress.kubernetes.io/session-cookie-name: "JSESSIONID"
+    ingress.kubernetes.io/ssl-passthrough: "true"
 spec:
   tls:
   - hosts:
